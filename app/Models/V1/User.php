@@ -19,6 +19,21 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(SkladActivity::class);
     }
 
+    public function kezek()
+    {
+        return $this->hasMany(Kezek::class);
+    }
+
+    public function uslugi()
+    {
+        return $this->hasMany(Uslugi::class);
+    }
+
+    public function banks()
+    {
+        return $this->hasMany(Bank::class);
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

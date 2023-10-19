@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\V1\Auth\AuthController;
+use App\Http\Controllers\V1\BankController;
+use App\Http\Controllers\V1\KezekController;
+use App\Http\Controllers\V1\SkladActivityController;
 use App\Http\Controllers\V1\SkladController;
+use App\Http\Controllers\V1\UslugiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +30,12 @@ Route::prefix('v1')->group(function () {
         Route::get('/me', [AuthController::class, 'actionCheckUser']);
         Route::get('/logout', [AuthController::class, 'actionLogoutUser']);
         Route::get('/tovars', [SkladController::class, 'index']);
-        Route::post('/new', [SkladController::class, 'create']);
+        Route::post('/tovar', [SkladController::class, 'create']);
         Route::put('/update/{id}', [SkladController::class, 'update']);
+        Route::get('/actives', [SkladActivityController::class, 'index']);
+        Route::get('/kezek', [KezekController::class, 'index']);
+        Route::post('/kezek', [KezekController::class, 'create']);
+        Route::get('/uslugi', [UslugiController::class, 'index']);
+        Route::get('/bank', [BankController::class, 'index']);
     });
 });

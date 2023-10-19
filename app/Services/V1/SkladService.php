@@ -12,6 +12,10 @@ class SkladService
     public function createTovar($data)
     {
         try {
+            $existingTovar = Sklad::where('name', $data['name'])->first();
+            if ($existingTovar) {
+                return response()->json(['message' => 'Product with the same name already exists'], 409);
+            }
             $userId = auth()->user();
             $data['idUser'] = $userId->id;
             $newTovar = Sklad::newTovar($data);
@@ -19,7 +23,7 @@ class SkladService
             $data['add'] = true;
             $newActivity = SkladActivity::newActivity($data);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
         }
         return response()->json(['success' => 'New tovar added', 'tovar' => $newTovar, 'activity' => $newActivity], 200);
     }
