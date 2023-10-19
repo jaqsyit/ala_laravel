@@ -32,7 +32,7 @@ class AuthService
 
         return response()->json([
             'token' => $token,
-            'name' => $user['name']
+            'profile' => $user
         ]);
     }
 

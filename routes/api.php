@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\Auth\AuthController;
+use App\Http\Controllers\V1\SkladController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,8 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function (){
         Route::get('/me', [AuthController::class, 'actionCheckUser']);
         Route::get('/logout', [AuthController::class, 'actionLogoutUser']);
+        Route::get('/tovars', [SkladController::class, 'index']);
+        Route::post('/new', [SkladController::class, 'create']);
+        Route::put('/update/{id}', [SkladController::class, 'update']);
     });
 });

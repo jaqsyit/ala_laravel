@@ -8,6 +8,7 @@ use App\Services\V1\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class AuthController extends Controller
@@ -43,6 +44,7 @@ class AuthController extends Controller
     public function actionCheckUser()
     {
         $user = Auth::user();
+        $user['remember_token'] =  JWTAuth::fromUser($user);
 
         return $user;
     }

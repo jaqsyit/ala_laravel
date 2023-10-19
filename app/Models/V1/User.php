@@ -9,6 +9,16 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    public function sklad()
+    {
+        return $this->hasMany(Sklad::class);
+    }
+
+    public function skladActivity()
+    {
+        return $this->hasMany(SkladActivity::class);
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
