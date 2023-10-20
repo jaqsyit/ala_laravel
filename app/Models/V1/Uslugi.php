@@ -9,6 +9,7 @@ class Uslugi extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['name', 'prise', 'user_id'];
 
     public function user()
@@ -19,5 +20,17 @@ class Uslugi extends Model
     public static function allUslugi($idUser)
     {
         return self::where('user_id', $idUser)->get();
+    }
+
+    public static function newUsluga($data)
+    {
+        $usluga = new self();
+        $usluga->user_id = $data['idUser'];
+        $usluga->name = $data['name'];
+        $usluga->price = $data['price'];
+
+        $usluga->save();
+
+        return $usluga;
     }
 }

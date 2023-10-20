@@ -22,4 +22,14 @@ class KezekService
         }
         return response()->json(['success' => 'New kezek added', 'kezek' => $newKezek], 200);
     }
+
+    public function deleteKezek($id)
+    {
+        $kezek = Kezek::find($id);
+        if (!$kezek) {
+            return response()->json(['message' => 'Kezek not found', 'kezek' => $kezek], 404);
+        }
+        $kezek->delete();
+        return response()->json(['success' => 'Kezek deleted', 'kezek' => $kezek], 200);
+    }
 }

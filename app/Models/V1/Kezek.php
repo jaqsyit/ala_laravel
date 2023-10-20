@@ -9,6 +9,7 @@ class Kezek extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = [
         'user_id',
         'status',
@@ -31,11 +32,7 @@ class Kezek extends Model
 
     public static function allKezek($idUser)
     {
-        if ($idUser != 1) {
-            return self::with('user')->where('user_id', $idUser)->get();
-        } else {
-            return self::with('user')->orderBy('id', 'desc')->get();
-        }
+        return self::where('user_id', $idUser)->orderBy('id', 'desc')->get();
     }
 
     public static function newKezek($data)

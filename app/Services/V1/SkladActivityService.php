@@ -7,7 +7,7 @@ use App\Models\V1\SkladActivity;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
-class SkladService
+class SkladActivityService
 {
     public function createTovar($data)
     {
@@ -32,27 +32,18 @@ class SkladService
     public function updateTovar($request, $id)
     {
         try {
-            $user = auth()->user();
-            $request['idUser'] = $user->id;
-            $tovar = Sklad::checkQuantity($id);
-            if (!$tovar) {
-                return response()->json(['message' => 'Tovar not found'], 404);
-            }
-            $currentQuantity = $tovar->quantity;
-            $newQuantity = $request['quantity'];
-            if ($currentQuantity === $newQuantity) {
-                return response()->json(['message' => 'No changes required'], 200);
-            }
-            $request['add'] = $newQuantity > $currentQuantity;
-            $updated = Sklad::newQuantity($request, $id);
-            if ($updated) {
-                $request['idSklad'] = $id;
-                $newActivity = SkladActivity::newActivity($request);
-            }
+            $userId = auth()->user();
+            $request['idUser'] = $userId->id;
+            $newQuantity = Sklad::newQuantity($request, $id);
+            $request['idSklad'] = $newQuantity->id;
+            $newActivity = SkladActivity::newActivity($request);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-        return response()->json(['success' => 'Tovar updated', 'tovar' => $tovar, 'activity' => $newActivity], 200);
+        return response()->json(['success' => 'Tovar updated', 'tovar' => $newQuantity, 'activity' => $newActivity], 200);
     }
 
+    public function createActivity($data)
+    {
+    }
 }

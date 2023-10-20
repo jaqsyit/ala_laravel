@@ -10,11 +10,11 @@ class Sklad extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['name', 'quantity', 'price', 'oz_price', 'id_user'];
+    protected $fillable = ['name', 'quantity', 'price', 'oz_price', 'user_id'];
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function skladActivity()
@@ -22,13 +22,9 @@ class Sklad extends Model
         return $this->hasMany(SkladActivity::class);
     }
 
-    public static function allTovars($idUser)
+    public static function allSklad($idUser)
     {
-        if ($idUser != 1) {
-            return self::where('id_user', $idUser)->get();
-        } else {
-            return self::all();
-        }
+        return self::where('user_id', $idUser)->get();
     }
 
     public static function newTovar($data)
@@ -45,15 +41,15 @@ class Sklad extends Model
         return $tovar;
     }
 
+    public static function checkQuantity($id)
+    {
+        return self::find($id);
+    }
+
 
     public static function newQuantity($data, $id)
     {
-        self::where('id', $id)->update(['quantity' => intval($data['quantity'])]);
-
-        if (!self::find($id)) {
-            return response()->json(['error' => 'Элемент не найден'], 404);
-        }
-
-        return self::find($id);
+        return self::where('id', $id)->update(['quantity' => $data['quantity']]);
     }
+
 }

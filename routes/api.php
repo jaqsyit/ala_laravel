@@ -29,13 +29,22 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function (){
         Route::get('/me', [AuthController::class, 'actionCheckUser']);
         Route::get('/logout', [AuthController::class, 'actionLogoutUser']);
+
         Route::get('/tovars', [SkladController::class, 'index']);
         Route::post('/tovar', [SkladController::class, 'create']);
-        Route::put('/update/{id}', [SkladController::class, 'update']);
+        Route::put('/tovar/{id}', [SkladController::class, 'update']);
+        Route::delete('/tovar/{id}', [SkladController::class, 'destroy']);
+
         Route::get('/actives', [SkladActivityController::class, 'index']);
+
         Route::get('/kezek', [KezekController::class, 'index']);
         Route::post('/kezek', [KezekController::class, 'create']);
+        Route::delete('/kezek/{id}', [KezekController::class, 'destroy']);
+
         Route::get('/uslugi', [UslugiController::class, 'index']);
+        Route::post('/uslugi', [UslugiController::class, 'create']);
+        Route::delete('/uslugi/{id}', [UslugiController::class, 'destroy']);
+
         Route::get('/bank', [BankController::class, 'index']);
     });
 });

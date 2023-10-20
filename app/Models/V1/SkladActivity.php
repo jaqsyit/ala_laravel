@@ -9,17 +9,18 @@ class SkladActivity extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_sklad', 'add', 'quantity', 'create_at','user_id'];
+    public $timestamps = false;
+    protected $fillable = ['id_sklad', 'add', 'quantity', 'create_at', 'user_id'];
     protected $table = 'sklad_activities';
 
     public function sklad()
     {
-        return $this->belongsTo(Sklad::class,'sklad_id');
+        return $this->belongsTo(Sklad::class, 'sklad_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public static function newActivity($data)
@@ -36,12 +37,8 @@ class SkladActivity extends Model
     }
 
 
-    public static function allActives($idUser)
+    public static function allSkladActivity($idUser)
     {
-        if ($idUser != 1) {
-            return self::with('user')->with('sklad')->where('id_user', $idUser)->orderBy('id', 'desc')->get();
-        } else {
-            return self::with('user')->with('sklad')->orderBy('id', 'desc')->get();
-        }
+        return self::where('user_id', $idUser)->get();
     }
 }
