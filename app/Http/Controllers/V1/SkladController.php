@@ -59,7 +59,7 @@ class SkladController extends Controller
             $data[] = $userData;
         }
 
-        return response()->json($data);
+        return response()->json(['data'=>$data],200);
     }
 
     public function create(Request $request)

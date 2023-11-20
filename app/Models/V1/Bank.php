@@ -20,10 +20,6 @@ class Bank extends Model
 
     public static function allBanks($idUser)
     {
-        if ($idUser != 1) {
-            return self::with('user')->where('user_id', $idUser)->get();
-        } else {
-            return self::with('user')->get();
-        }
+        return self::where('user_id', $idUser)->orderBy('id', 'desc')->get();
     }
 }

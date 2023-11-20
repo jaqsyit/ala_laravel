@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->integer('income');
-            $table->integer('profit');
-            $table->integer('expense');
+            $table->integer('income');      // доход
+            $table->integer('profit');      // прибыль
+            $table->integer('expense');     // расход
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

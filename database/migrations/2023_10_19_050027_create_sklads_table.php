@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('sklads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('quantity');
             $table->integer('price');
             $table->integer('oz_price');

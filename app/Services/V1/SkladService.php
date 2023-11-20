@@ -12,12 +12,12 @@ class SkladService
     public function createTovar($data)
     {
         try {
-            $existingTovar = Sklad::where('name', $data['name'])->first();
+            $userId = auth()->user();
+            $data['idUser'] = $userId->id;
+            $existingTovar = Sklad::where('name', $data['name'])->where('user_id', $data['idUser'])->first();
             if ($existingTovar) {
                 return response()->json(['message' => 'Product with the same name already exists'], 409);
             }
-            $userId = auth()->user();
-            $data['idUser'] = $userId->id;
             $newTovar = Sklad::newTovar($data);
             $data['idSklad'] = $newTovar->id;
             $data['add'] = true;
