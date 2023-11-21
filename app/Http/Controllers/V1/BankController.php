@@ -5,42 +5,37 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Models\V1\Bank;
 use App\Models\V1\User;
+use App\Services\V1\BankService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BankController extends Controller
 {
+    /**
+    //     * @param AuthRequest $request
+     * @param BankService $service
+     * @return JsonResponse
+     */
+
+    protected $service;
+
+    public function __construct(BankService $service)
+    {
+        $this->BankService = $service;
+    }
+
     public function index()
     {
-        $user = auth()->user();
-        $data = [];
+        return $this->BankService->allList();
+    }
 
-        if ($user->id == 1) {
-            $allUsers = User::all();
+    public function create(Request $request)
+    {
+        return $this->BankService->createNewRow($request->all());
+    }
 
-            foreach ($allUsers as $u) {
-                $allData = Bank::allBanks($u->id);
-
-                $userData = [
-                    'id' => $u->id,
-                    'name' => $u->name,
-                    'email' => $u->email,
-                    'bank' => $allData,
-                ];
-
-                $data[] = $userData;
-            }
-        } else {
-            $allData = Bank::allBanks($user->id);
-
-            $userData = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'bank' => $allData,
-            ];
-            $data[] = $userData;
-        }
-
-        return response()->json(['data' => $data], 200);
+    public function destroy($id)
+    {
+        return $this->BankService->deleteRow($id);
     }
 }
