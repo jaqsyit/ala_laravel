@@ -64,6 +64,11 @@ class KezekController extends Controller
         return $this->KezekService->createKezek($request->all());
     }
 
+    public function update($id)
+    {
+        return $this->KezekService->updateRow($id);
+    }
+
     public function destroy($id)
     {
         return $this->KezekService->deleteKezek($id);

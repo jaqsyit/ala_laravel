@@ -15,7 +15,7 @@ class SkladController extends Controller
 {
 
     /**
-//     * @param AuthRequest $request
+     * //     * @param AuthRequest $request
      * @param SkladService $service
      * @return JsonResponse
      */
@@ -59,7 +59,7 @@ class SkladController extends Controller
             $data[] = $userData;
         }
 
-        return response()->json(['data'=>$data],200);
+        return response()->json(['data' => $data], 200);
     }
 
     public function create(Request $request)
@@ -78,7 +78,10 @@ class SkladController extends Controller
         if (!$usluga) {
             return response()->json(['message' => 'Tovar not found'], 404);
         }
+        SkladActivity::where('sklad_id', $id)->delete();
         $usluga->delete();
+
         return response()->json(['message' => 'Tovar deleted'], 200);
     }
+
 }

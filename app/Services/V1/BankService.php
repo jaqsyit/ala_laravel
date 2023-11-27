@@ -14,7 +14,7 @@ class BankService
             $usersData = []; // Для хранения данных пользователей
 
             $startDate = request('startDate', date("Y-m-01")); // Получаем из запроса или используем первое число месяца
-            $endDate = request('endDate', date("Y-m-d")); // Получаем из запроса или используем сегодняшнюю дату
+            $endDate = request('endDate', date("Y-m-d 23:59:59")); // Получаем из запроса или используем сегодняшнюю дату
 
             if ($user->id == 1) {
                 $allUsers = User::all();
@@ -86,29 +86,25 @@ class BankService
     public function createNewRow($data)
     {
         try {
-            $existingTovar = Bank::where('tel', $data['tel'])
-                ->where('status', 0)
-                ->first();
-            if ($existingTovar) {
-                return response()->json(['message' => 'Kezek with the same name already exists'], 409);
-            }
-            $newKezek = Bank::newKezek($data);
+            $user = auth()->user();
+            $data['filialId'] = $user->id;
+            $newRow = Bank::newRow($data);
         } catch (Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
-        return response()->json(['success' => 'New kezek added', 'kezek' => $newKezek], 200);
+        return response()->json(['success' => 'New kezek added', 'kezek' => $newRow], 200);
     }
 
     public function deleteRow($id)
     {
         try {
-            $kezek = Bank::find($id);
-            if (!$kezek) {
-                return response()->json(['message' => 'Kezek not found', 'kezek' => $kezek], 404);
+            $row = Bank::find($id);
+            if (!$row) {
+                return response()->json(['message' => 'Kezek not found', 'bank' => $row], 404);
             }
 
-            $kezek->delete();
-            return response()->json(['success' => 'Kezek deleted', 'kezek' => $kezek], 200);
+            $row->delete();
+            return response()->json(['success' => 'Bank deleted', 'bank' => $row], 200);
         } catch (\Exception $e) {
             // Handle the exception here
             return response()->json(['error' => $e->getMessage()], 500);

@@ -32,4 +32,20 @@ class KezekService
         $kezek->delete();
         return response()->json(['success' => 'Kezek deleted', 'kezek' => $kezek], 200);
     }
+
+    public function updateRow($id)
+    {
+        $kezek = Kezek::find($id);
+        if (!$kezek) {
+            return response()->json(['message' => 'Kezek not found'], 404);
+        }
+        $newStatus = $kezek->status == 1 ? 0 : 1;
+        $updated = Kezek::where('id', $id)->update(['status' => $newStatus]);
+        if ($updated) {
+            $kezek->status = $newStatus;
+            return response()->json(['success' => 'Kezek updated', 'kezek' => $kezek], 200);
+        } else {
+            return response()->json(['error' => 'Update failed'], 500);
+        }
+    }
 }

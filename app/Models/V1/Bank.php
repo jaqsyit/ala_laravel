@@ -22,4 +22,18 @@ class Bank extends Model
     {
         return self::where('user_id', $idUser)->orderBy('id', 'desc')->get();
     }
+
+    public static function newRow($data)
+    {
+        $newRow = new self();
+        $newRow->user_id = $data['filialId'];
+        $newRow->name = $data['name'];
+        $newRow->income = $data['income'];
+        $newRow->profit = $data['profit'];
+        $newRow->expense = $data['expense'];
+
+        $newRow->save();
+
+        return $newRow;
+    }
 }

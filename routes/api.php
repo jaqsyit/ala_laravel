@@ -39,6 +39,7 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/kezek', [KezekController::class, 'index']);
         Route::post('/kezek', [KezekController::class, 'create']);
+        Route::put('/kezek/{id}', [KezekController::class, 'update']);
         Route::delete('/kezek/{id}', [KezekController::class, 'destroy']);
 
         Route::get('/uslugi', [UslugiController::class, 'index']);
@@ -46,5 +47,7 @@ Route::prefix('v1')->group(function () {
         Route::delete('/uslugi/{id}', [UslugiController::class, 'destroy']);
 
         Route::get('/bank', [BankController::class, 'index']);
+        Route::post('/bank', [BankController::class, 'create']);
+        Route::delete('/bank/{id}', [BankController::class, 'destroy']);
     });
 });
