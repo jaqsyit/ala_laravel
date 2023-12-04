@@ -42,6 +42,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $dataWorkers = [
+            ['id' => 1, 'name' => 'Ибрагим', 'tel' => '+77083620675'],
+            ['id' => 2, 'name' => '2 worker', 'tel' => '+77083620675'],
+            ['id' => 3, 'name' => '3 worker', 'tel' => '+77083620675'],
+        ];
+        DB::table('workers')->upsert($dataWorkers, ['id'], ['name', 'tel']);
+
 
 
         DB::table('uslugis')->updateOrInsert(
@@ -140,7 +147,7 @@ class DatabaseSeeder extends Seeder
                 'model' => 'Cerato',
                 'equipment' => 'xl',
                 'year' => 2004,
-                'uslugi' => 'sdfsg',
+                'id_usluga' => 'sdfsg',
                 'linza' => null,
                 'sum' => 135000,
                 'comment' => null,
@@ -158,7 +165,7 @@ class DatabaseSeeder extends Seeder
                 'model' => 'Camry',
                 'equipment' => 'xle',
                 'year' => 2017,
-                'uslugi' => 'Установка линзы',
+                'id_usluga' => 'Установка линзы',
                 'linza' => 'Azoom A5',
                 'sum' => 200000,
                 'comment' => null,

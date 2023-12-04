@@ -10,7 +10,7 @@ class Bank extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['user_id', 'income', 'profit', 'expense'];
+    protected $fillable = ['user_id','name', 'income', 'profit', 'expense'];
     protected $table = 'banks';
 
     public function user()

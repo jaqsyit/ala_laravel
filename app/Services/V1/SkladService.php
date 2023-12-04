@@ -2,6 +2,7 @@
 
 namespace App\Services\V1;
 
+use App\Models\V1\Bank;
 use App\Models\V1\Sklad;
 use App\Models\V1\SkladActivity;
 use Exception;
@@ -48,6 +49,14 @@ class SkladService
             if ($updated) {
                 $request['idSklad'] = $id;
                 $newActivity = SkladActivity::newActivity($request);
+                if (!$request['add']) {
+                    $dataForBank['filialId'] = $request['idUser'];
+                    $dataForBank['name'] = 'Сатылым '. $tovar->name;
+                    $dataForBank['income'] = $tovar->price * ($currentQuantity-$newQuantity);
+                    $dataForBank['profit'] = ($tovar->price - $tovar->oz_price) * ($currentQuantity-$newQuantity);
+                    $dataForBank['expense'] = 0;
+                    Bank::newRow($dataForBank);
+                }
             }
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

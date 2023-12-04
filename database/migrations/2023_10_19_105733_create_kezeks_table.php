@@ -22,9 +22,11 @@ return new class extends Migration
             $table->string('model');
             $table->string('equipment');
             $table->integer('year');
-            $table->string('uslugi');
+            $table->string('id_usluga')->constrained();
             $table->string('linza')->nullable();
             $table->integer('sum');
+            $table->integer('sum_prepayment')->nullable();
+            $table->integer('sum_usluga')->nullable();
             $table->string('comment')->nullable();
             $table->string('tel');
             $table->dateTime('zapis');
