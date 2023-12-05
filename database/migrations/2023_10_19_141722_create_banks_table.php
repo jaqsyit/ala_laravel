@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('kezek_id')->nullable();
             $table->string('name');
             $table->integer('income');      // доход
             $table->integer('profit');      // прибыль

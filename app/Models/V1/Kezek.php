@@ -17,9 +17,11 @@ class Kezek extends Model
         'model',
         'equipment',
         'year',
-        'uslugi',
+        'id_usluga',
         'linza',
         'sum',
+        'sum_prepayment',
+        'sum_usluga',
         'comment',
         'tel',
         'zapis',
@@ -30,9 +32,13 @@ class Kezek extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function banks(){
+        return $this->hasMany(Bank::class,'kezek_id','id');
+    }
+
     public static function allKezek($idUser)
     {
-        return self::where('user_id', $idUser)->orderBy('id', 'desc')->get();
+        return self::with('banks')->where('user_id', $idUser)->orderBy('id', 'desc')->get();
     }
 
     public static function newKezek($data)

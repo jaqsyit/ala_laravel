@@ -28,14 +28,24 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Ануар',
                 'email' => 'root',
                 'password' => '123123',
-                'filial' => 'Жаңаөзен'
+                'filial' => 'Генеральный директор'
             ]
         );
 
         DB::table('users')->updateOrInsert(
             ['id' => 2],
             [
-                'name' => 'Актобе',
+                'name' => 'Оператор Жаңаөзен',
+                'email' => 'janaozen',
+                'password' => '123123',
+                'filial' => 'Жаңаөзен'
+            ]
+        );
+
+        DB::table('users')->updateOrInsert(
+            ['id' => 3],
+            [
+                'name' => 'Оператор Ақтобе',
                 'email' => 'aktobe',
                 'password' => '123123',
                 'filial' => 'Ақтөбе'
@@ -54,7 +64,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 1],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Линза орнату',
                 'price' => '45000'
             ]
@@ -62,7 +72,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 2],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Рифление тазалау',
                 'price' => '20000'
             ]
@@ -70,7 +80,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 3],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Микротрещина тазалау',
                 'price' => '20000'
             ]
@@ -78,7 +88,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 4],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Фара токтарын қалыпқа келтіру',
                 'price' => '40000'
             ]
@@ -86,7 +96,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 5],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Фараны жылтырату',
                 'price' => '30000'
             ]
@@ -94,7 +104,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 6],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Булану себебін анықтау',
                 'price' => '10000'
             ]
@@ -102,7 +112,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 7],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'Артқы фонарь светодиодтарын ауыстыру',
                 'price' => '40000'
             ]
@@ -110,7 +120,7 @@ class DatabaseSeeder extends Seeder
         DB::table('uslugis')->updateOrInsert(
             ['id' => 8],
             [
-                'user_id' => '1',
+                'user_id' => '2',
                 'name' => 'ДХО ремонттау және орнату',
                 'price' => '30000'
             ]
@@ -119,7 +129,7 @@ class DatabaseSeeder extends Seeder
         DB::table('sklads')->updateOrInsert(
             ['id' => 1],
             [
-                'user_id' => 1,
+                'user_id' => '2',
                 'name' => 'герметик',
                 'quantity' => 10,
                 'price' => 4000,
@@ -130,7 +140,7 @@ class DatabaseSeeder extends Seeder
         DB::table('sklads')->updateOrInsert(
             ['id' => 2],
             [
-                'user_id' => 1,
+                'user_id' => '2',
                 'name' => 'Azoom a5',
                 'quantity' => 4,
                 'price' => 50000,
@@ -141,7 +151,7 @@ class DatabaseSeeder extends Seeder
         DB::table('kezeks')->updateOrInsert(
             ['id' => 1],
             [
-                'user_id' => 1,
+                'user_id' => '2',
                 'status' => false,
                 'mark' => 'Kia',
                 'model' => 'Cerato',
@@ -159,7 +169,7 @@ class DatabaseSeeder extends Seeder
         DB::table('kezeks')->updateOrInsert(
             ['id' => 2],
             [
-                'user_id' => 1,
+                'user_id' => '2',
                 'status' => false,
                 'mark' => 'Toyota',
                 'model' => 'Camry',

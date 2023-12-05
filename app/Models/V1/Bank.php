@@ -10,12 +10,17 @@ class Bank extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = ['user_id','name', 'income', 'profit', 'expense'];
+    protected $fillable = ['user_id','kezek_id', 'name', 'income', 'profit', 'expense'];
     protected $table = 'banks';
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class,'id','user_id');
+    }
+
+    public function kezek()
+    {
+        return $this->hasOne(Kezek::class, 'id', 'kezek_id');
     }
 
     public static function allBanks($idUser)

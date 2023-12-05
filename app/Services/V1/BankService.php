@@ -11,10 +11,10 @@ class BankService
     public function allList() {
         try {
             $user = auth()->user();
-            $usersData = []; // Для хранения данных пользователей
+            $usersData = [];
 
-            $startDate = request('startDate', date("Y-m-01")); // Получаем из запроса или используем первое число месяца
-            $endDate = request('endDate', date("Y-m-d 23:59:59")); // Получаем из запроса или используем сегодняшнюю дату
+            $startDate = request('startDate', date("Y-m-01"));
+            $endDate = request('endDate', date("Y-m-d 23:59:59"));
 
             if ($user->id == 1) {
                 $allUsers = User::all();
@@ -41,13 +41,12 @@ class BankService
                         'name' => $u->name,
                         'email' => $u->email,
                         'bank' => $allData,
-                        'statistics' => $userStatistics, // Добавляем статистику для каждого пользователя
+                        'statistics' => $userStatistics,
                     ];
 
                     $usersData[] = $userData;
                 }
             } else {
-                // Для текущего пользователя, если он не админ
                 $userStatistics = [
                     'income' => 0,
                     'profit' => 0,
@@ -69,15 +68,13 @@ class BankService
                     'name' => $user->name,
                     'email' => $user->email,
                     'bank' => $allData,
-                    'statistics' => $userStatistics, // Добавляем статистику для текущего пользователя
+                    'statistics' => $userStatistics,
                 ];
 
                 $usersData[] = $userData;
             }
-
             return response()->json(['users' => $usersData], 200);
         } catch (\Exception $e) {
-            // Handle the exception
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

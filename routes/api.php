@@ -6,6 +6,7 @@ use App\Http\Controllers\V1\KezekController;
 use App\Http\Controllers\V1\SkladActivityController;
 use App\Http\Controllers\V1\SkladController;
 use App\Http\Controllers\V1\UslugiController;
+use App\Http\Controllers\V1\WorkerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::post('/login', [AuthController::class, 'actionLoginUser']);
 
-    Route::middleware('auth:api')->group(function (){
+    Route::middleware('auth:api')->group(function () {
         Route::get('/me', [AuthController::class, 'actionCheckUser']);
         Route::get('/logout', [AuthController::class, 'actionLogoutUser']);
 
@@ -49,5 +50,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/bank', [BankController::class, 'index']);
         Route::post('/bank', [BankController::class, 'create']);
         Route::delete('/bank/{id}', [BankController::class, 'destroy']);
+
+        Route::get('/workers', [WorkerController::class, 'index']);
     });
 });
